@@ -1,0 +1,7 @@
+﻿lpips
+scikit-image
+pyyaml
+pandas
+matplotlib
+tqdm
+gradio
