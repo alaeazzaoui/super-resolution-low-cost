@@ -28,7 +28,7 @@ Auteur : Alae AZZAOUI, EMSI Rabat (5e année, Intelligence Artificielle et Data 
 
 - Entraînement : 300 images de DIV2K (haute résolution), choisies aléatoirement (graine 42).
 - Validation : 50 images de DIV2K (validation).
-- Test : Set5 et Set14 (évaluation légère, sans mélange avec l'entraînement).
+- Test : Set5 (5 images) et Set14 (14 images), versions haute résolution issues des jeux Hugging Face `eugenesiow/Set5` et `eugenesiow/Set14`. Les versions basse résolution sont recréées par réduction bicubique ×4, comme à l'entraînement. Évaluation sur images entières recadrées à un multiple de 4, sans mélange avec l'entraînement.
 - Patches haute résolution de 128 × 128 extraits à la volée, versions basse résolution obtenues par réduction bicubique ×4 (32 × 32).
 
 Détails et licences : voir `docs/fiche_donnees.md`.
@@ -70,6 +70,17 @@ Les données et les points de sauvegarde des modèles sont conservés sur Google
 
 Un PSNR et un SSIM élevés indiquent une meilleure fidélité à l'image attendue, un LPIPS bas indique une meilleure proximité visuelle perçue.
 
+Évaluation sur images entières (Set5 et Set14), facteur ×4, métriques calculées en RGB. Temps mesurés sur CPU pour les deux méthodes (comparaison valable).
+
+| Jeu | Méthode | PSNR (dB) | SSIM | LPIPS | Temps CPU (ms) |
+|---|---|---|---|---|---|
+| Set5 | Bicubique | 26,886 | 0,7940 | 0,3419 | 11 |
+| Set5 | EDSR léger | 27,856 | 0,8204 | 0,2739 | 415 |
+| Set14 | Bicubique | 24,356 | 0,6909 | 0,4433 | 13 |
+| Set14 | EDSR léger | 25,044 | 0,7189 | 0,3831 | 1 021 |
+
+Ces valeurs ne sont pas comparables à celles publiées dans la littérature, qui utilisent en général le canal Y et excluent les bords de l'image.
+
 ## 7. Avancement
 
 - [x] Structure du dépôt et environnement Colab
@@ -77,7 +88,7 @@ Un PSNR et un SSIM élevés indiquent une meilleure fidélité à l'image attend
 - [x] Baseline bicubique et métriques
 - [x] Réseau EDSR léger
 - [ ] GAN
-- [ ] Évaluation sur Set5 et Set14
+- [x] Évaluation sur Set5 et Set14
 - [ ] Diffusion légère
 - [ ] Catalogue des détails inventés
 - [ ] Démonstration interactive
