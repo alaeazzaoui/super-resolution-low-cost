@@ -1,3 +1,7 @@
-,psnr,ssim,lpips,time_ms,vram_mb
-baseline_bicubic,25.881,0.7122,0.456,1.7024,
-edsr_light,26.4072,0.7428,0.3837,2.8782,39.8
+jeu,methode,psnr,ssim,lpips,temps_ms,appareil
+Validation (50 patches),bicubique,25.881,0.7122,0.456,1.7024,CPU
+Validation (50 patches),edsr_light,26.4072,0.7428,0.3837,2.8782,GPU T4
+Set5 (images entières),bicubique,26.8857,0.794,0.3419,11.3392,CPU
+Set5 (images entières),edsr_light,27.856,0.8204,0.2739,414.9975,CPU
+Set14 (images entières),bicubique,24.3555,0.6909,0.4433,12.7135,CPU
+Set14 (images entières),edsr_light,25.044,0.7189,0.3831,1020.6761,CPU
