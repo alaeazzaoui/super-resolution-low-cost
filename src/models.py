@@ -34,3 +34,22 @@ class EDSRLight(nn.Module):
         x = self.head(x)
         x = self.body(x) + x
         return self.tail(self.up(x))
+class Discriminator(nn.Module):
+    def __init__(self, n_feats=64):
+        super().__init__()
+
+        def block(i, o, s):
+            return [nn.Conv2d(i, o, 3, stride=s, padding=1), nn.LeakyReLU(0.2, inplace=True)]
+
+        layers = (
+            block(3, n_feats, 1) + block(n_feats, n_feats, 2)
+            + block(n_feats, n_feats * 2, 1) + block(n_feats * 2, n_feats * 2, 2)
+            + block(n_feats * 2, n_feats * 4, 1) + block(n_feats * 4, n_feats * 4, 2)
+        )
+        self.features = nn.Sequential(*layers)
+        self.classifier = nn.Sequential(
+            nn.AdaptiveAvgPool2d(1), nn.Flatten(), nn.Linear(n_feats * 4, 1)
+        )
+
+    def forward(self, x):
+        return self.classifier(self.features(x))
